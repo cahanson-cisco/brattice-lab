@@ -1,7 +1,13 @@
-resource "intersight_chassis_profile" "ucsx-chassis" {
-  for_each = toset(["brattice-01"])
+data "intersight_equipment_chassis" "brattice" {
+  device_mo_id = data.intersight_asset_device_registration.brattice.results[0].moid
+}
 
-  name = each.key
+resource "intersight_chassis_profile" "brattice-chassis" {
+  for_each = { for index, chassis in data.intersight_equipment_chassis.brattice.results :
+    chassis.moid => chassis
+  }
+
+  name = each.value.name
   tags = [local.terraform]
   organization {
     moid = local.organization
