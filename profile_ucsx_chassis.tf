@@ -10,7 +10,9 @@ resource "intersight_chassis_profile" "brattice-chassis" {
   lifecycle {
     ignore_changes = [
       config_context,
-      action
+      action,
+      additional_properties,
+      mod_time
     ]
   } 
 
