@@ -7,15 +7,6 @@ resource "intersight_chassis_profile" "brattice-chassis" {
     chassis.moid => chassis
   }
 
-  lifecycle {
-    ignore_changes = [
-      config_context,
-      action,
-      additional_properties,
-      mod_time
-    ]
-  } 
-
   name = each.value.name
   tags = [local.terraform]
   organization {
